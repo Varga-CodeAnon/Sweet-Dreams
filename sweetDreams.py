@@ -20,13 +20,22 @@ def error_display(code):
 def service_catcher(file_name):
     """Catch from a nmap grepable output file the list of actives services"""
     scan_f = open(file_name,"r")
+    ports = []
     for line in scan_f:  # read the file line by line
         if "Ports:" in line:
+            # ports part
+            fields = line.split(' ')[3:]  # split the output and only keep the ports fields
+            for field in fields:
+                ports.append(field.split('/')[:1][0])
+            
+            # services name part
             services = line.split('//')[1:-1]  # split the output and only keep the ports fields
-            del services[1::2]  # only keep the service name
+            del services[1::2]  # only keep the name of the service by deleting the odd fields
+    
     scan_f.close
+    results = dict(zip(ports, services))
 
-    return services
+    return results
 
 
 def nmap_init(target,file_name):
@@ -47,7 +56,8 @@ def nmap_init(target,file_name):
 
 def animated_loading():
     """A useless loading animation"""
-    for i in range(10):
+    i = 0
+    while i < 10:
         sys.stdout.write("\r[*] Let's start the information gathering [|]")
         time.sleep(0.1)
         sys.stdout.write("\r[*] Let's start the information gathering [/]")
@@ -56,7 +66,9 @@ def animated_loading():
         time.sleep(0.1)
         sys.stdout.write("\r[*] Let's start the information gathering [\\]")
         time.sleep(0.1)
+        i+=1
     sys.stdout.write("\r[*] Let's start the information gathering\n")
+
 # =========================== MAIN ===========================
 if len(sys.argv) != 3:
     error_display(1)
