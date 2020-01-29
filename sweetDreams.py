@@ -47,9 +47,11 @@ def nmap_init(target,file_name):
 # =========================== MAIN ===========================
 if len(sys.argv) != 3:
     error_display(1)
-
+with open("ascii.txt", 'r') as ascii:  # for the banner
+    print(ascii.read())
 # file_o = open(file_name, "w")
 start_time = time.time()
+
 
 print(nmap_init(sys.argv[1],sys.argv[2]))
 
