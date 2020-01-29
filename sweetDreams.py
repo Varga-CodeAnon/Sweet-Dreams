@@ -3,6 +3,7 @@ import os
 import subprocess
 import sys
 import time
+import datetime
 
 
 def error_display(code):
@@ -44,15 +45,28 @@ def nmap_init(target,file_name):
     return services
 
 
+def animated_loading():
+    """A useless loading animation"""
+    for i in range(10):
+        sys.stdout.write("\r[*] Let's start the information gathering [|]")
+        time.sleep(0.1)
+        sys.stdout.write("\r[*] Let's start the information gathering [/]")
+        time.sleep(0.1)
+        sys.stdout.write("\r[*] Let's start the information gathering [-]")
+        time.sleep(0.1)
+        sys.stdout.write("\r[*] Let's start the information gathering [\\]")
+        time.sleep(0.1)
+    sys.stdout.write("\r[*] Let's start the information gathering\n")
 # =========================== MAIN ===========================
 if len(sys.argv) != 3:
     error_display(1)
 with open("ascii.txt", 'r') as ascii:  # for the banner
     print(ascii.read())
 # file_o = open(file_name, "w")
+print("[*] Start time: ",datetime.datetime.now().time())
 start_time = time.time()
 
-
+animated_loading()
 print(nmap_init(sys.argv[1],sys.argv[2]))
 
 end_time = time.time()
