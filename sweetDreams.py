@@ -9,7 +9,7 @@ import datetime
 def error_display(code):
     """Displays the error message corresponding to the code passed as a parameter"""
     if code == 1:
-        sys.stderr.write("[!] SweetDreams: Argument error: sudo ./sweetDreams.py <target> <output_file.xml>\n")
+        sys.stderr.write("[!] SweetDreams: Argument error: sudo ./sweetDreams.py <target> <output_file.ctd>\n")
     elif code == 2:
         sys.stderr.write("[!] SweetDreams:nmap error: You must have nmap installed and run this script with root privileges\n")
     elif code == 3:
@@ -42,7 +42,7 @@ def nmap_init(target,file_name):
     """Start the nmap scan and begin the information gathering"""
     temp = file_name + ".temp"
     try:
-        subprocess.run(["nmap","--top-ports=10","-sS",target,"-oG", temp, "-oX", file_name], stdout=subprocess.DEVNULL, check=True)
+        subprocess.run(["nmap","--top-ports=10","-sS",target,"-oG", temp, "-oN", file_name], stdout=subprocess.DEVNULL, check=True)
     except subprocess.CalledProcessError:
         error_display(2)
 
@@ -74,13 +74,30 @@ if len(sys.argv) != 3:
     error_display(1)
 with open("ascii.txt", 'r') as ascii:  # for the banner
     print(ascii.read())
-# file_o = open(file_name, "w")
+
 print("[*] Start time: ",datetime.datetime.now().time())
 start_time = time.time()
+# //////////// WORK AREA //////////////
+file_name = sys.argv[2] + ".ctd"
+target = sys.argv[1]
+os = "FIXME:"
+services_table = "FIXME:"
+file_o = open(file_name, "w")
+file_o.write(
+"""<?xml version="1.0" ?>
+<cherrytree>
+    <node custom_icon_id="14" foreground="" is_bold="True" name="SweetDreams" prog_lang="custom-colors" readonly="False" tags="" ts_creation="0.0" ts_lastsave="0.0" unique_id="1">\
+        <rich_text weight="heavy">Target:</rich_text>
+        <rich_text> """ + target + """\n</rich_text>
+        <rich_text weight="heavy">OS:</rich_text>
+		<rich_text> """ + os + """\n</rich_text>""")
 
-animated_loading()
+file_o.write(
+"""	</node>
+</cherrytree>""")
+
+# /////////////////////////////////////
 print(nmap_init(sys.argv[1],sys.argv[2]))
-
 end_time = time.time()
 # file_o.write("Coucou\n")
 # file_o.close
