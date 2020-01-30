@@ -27,11 +27,11 @@ def service_catcher(file_name):
             fields = line.split(' ')[3:]  # split the output and only keep the ports fields
             for field in fields:
                 ports.append(field.split('/')[:1][0])
-            
+
             # services name part
             services = line.split('//')[1:-1]  # split the output and only keep the ports fields
             del services[1::2]  # only keep the name of the service by deleting the odd fields
-    
+
     scan_f.close
     results = dict(zip(ports, services))
 
@@ -72,7 +72,7 @@ def animated_loading():
 # =========================== MAIN ===========================
 if len(sys.argv) != 3:
     error_display(1)
-with open("ascii.txt", 'r') as ascii:  # for the banner
+with open(".local/ascii.txt", 'r') as ascii:  # for the banner
     print(ascii.read())
 
 print("[*] Start time: ",datetime.datetime.now().time())
