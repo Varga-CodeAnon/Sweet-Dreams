@@ -1,9 +1,10 @@
 #!/usr/bin/python3
+import datetime
+import itertools
 import os
 import subprocess
 import sys
 import time
-import datetime
 
 
 def error_display(code):
@@ -40,6 +41,7 @@ def service_catcher(file_name):
 
 def nmap_init(target,file_name):
     """Start the nmap scan and begin the information gathering"""
+    animated_loading("Nmap -sS scan")
     temp = file_name + ".temp"
     try:
         subprocess.run(["nmap","-p-","-sS",target,"-oG", temp, "-oN", file_name], stdout=subprocess.DEVNULL, check=True)
@@ -54,33 +56,25 @@ def nmap_init(target,file_name):
     return services
 
 
-def nmap_sv(dicto,target):
+def nmap_sv(dicto,target,file_name):
     """Execute the nmap version scan (sV) and save the output in a temporary file"""
+    animated_loading("Nmap -sV scan")
     ports = "-p"
     for port in dicto:
         ports += port + ","
     ports = ports[:-1]
-    # try:
-    #     subprocess.run(["nmap",ports,"-sV",target,"-oG sV_temp -oN sV_output"], stdout=subprocess.DEVNULL, check=True)
-    # except subprocess.CalledProcessError:
-    #     error_display(2)
-    print("nmap",ports,"-sV",target,"-oG sV_temp -oN sV_output")
+    # subprocess.run(["nmap",ports,"-sV",target,"--append-output","-oG","sV_temp","-oN",file_name,"-O"])#, stdout=subprocess.DEVNULL)
+    subprocess.run(["nmap",ports,"-sV",target,"--append-output","-oG","sV_temp","-oN",file_name,"-O"], stdout=subprocess.DEVNULL)    
 
 
-def animated_loading():
+def animated_loading(text):
     """A useless loading animation"""
-    i = 0
-    while i < 10:
-        sys.stdout.write("\r[*] Let's start the information gathering [|]")
-        time.sleep(0.1)
-        sys.stdout.write("\r[*] Let's start the information gathering [/]")
-        time.sleep(0.1)
-        sys.stdout.write("\r[*] Let's start the information gathering [-]")
-        time.sleep(0.1)
-        sys.stdout.write("\r[*] Let's start the information gathering [\\]")
-        time.sleep(0.1)
-        i+=1
-    sys.stdout.write("\r[*] Let's start the information gathering\n")
+    sys.stdout.write("\r[*] "+text+" in progress...\n")
+    # for char in itertools.cycle(['|', '/', '-', '\\']):
+    #     sys.stdout.write("\r[*] "+text+" in progress ["+char+"]")
+    #     sys.stdout.flush()
+    #     time.sleep(0.1)
+    # sys.stdout.write("\r[*] "+text+" Done!\n")
 
 
 def cherry_header(file_ctd,target,op_sys):
@@ -96,7 +90,7 @@ def cherry_header(file_ctd,target,op_sys):
 
 def cherry_tail(file_ctd):
     """Write a cherrytree end of file (xml format)"""
-    file_o.write(
+    file_ctd.write(
 """	</node>
 </cherrytree>""")
 
@@ -112,17 +106,15 @@ target = sys.argv[1]
 print("[*] Start time: ",datetime.datetime.now().time())
 start_time = time.time()
 port_serv = nmap_init(sys.argv[1],sys.argv[2])  # initialization
-nmap_sv(port_serv,target)  # grepable output in the file sV_temp 
+nmap_sv(port_serv,target,sys.argv[2])  # grepable output in the file sV_temp 
 # TODO: faire en sorte qu'il retourne une liste classé par port avec les info nécessaire
 # comme ça, il suffira de prendre l'indice de la liste pour remplir le noeud cherry tree
 # //////////// WORK AREA //////////////
 
 os = "FIXME:"
 services_table = "FIXME:"
-file_o = open(file_name, "w")
+# file_o = open(file_name, "x")
 
-
-animated_loading()
 
 # cherry_header(file_o,target,os)
 
@@ -137,5 +129,5 @@ animated_loading()
 
 # /////////////////////////////////////
 end_time = time.time()
-file_o.close
+# file_o.close
 print("[*] Done, ", end_time-start_time," elapsed !")
