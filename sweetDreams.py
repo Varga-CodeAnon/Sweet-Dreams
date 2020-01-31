@@ -42,7 +42,7 @@ def nmap_init(target,file_name):
     """Start the nmap scan and begin the information gathering"""
     temp = file_name + ".temp"
     try:
-        subprocess.run(["nmap","--top-ports=10","-sS",target,"-oG", temp, "-oN", file_name], stdout=subprocess.DEVNULL, check=True)
+        subprocess.run(["nmap","-p-","-sS",target,"-oG", temp, "-oN", file_name], stdout=subprocess.DEVNULL, check=True)
     except subprocess.CalledProcessError:
         error_display(2)
 
@@ -54,7 +54,7 @@ def nmap_init(target,file_name):
     return services
 
 
-def nmap_sv(dicto):
+def nmap_sv(dicto,target):
     """Execute the nmap version scan (sV) and save the output in a temporary file"""
     ports = "-p"
     for port in dicto:
@@ -106,15 +106,17 @@ if len(sys.argv) != 3:
 with open(".local/ascii.txt", 'r') as ascii:  # for the banner
     print(ascii.read())
 
+file_name = sys.argv[2]
+target = sys.argv[1]
+
 print("[*] Start time: ",datetime.datetime.now().time())
 start_time = time.time()
 port_serv = nmap_init(sys.argv[1],sys.argv[2])  # initialization
-nmap_sv(port_serv)  # grepable output in the file sV_temp 
+nmap_sv(port_serv,target)  # grepable output in the file sV_temp 
 # TODO: faire en sorte qu'il retourne une liste classé par port avec les info nécessaire
 # comme ça, il suffira de prendre l'indice de la liste pour remplir le noeud cherry tree
 # //////////// WORK AREA //////////////
-file_name = sys.argv[2]
-target = sys.argv[1]
+
 os = "FIXME:"
 services_table = "FIXME:"
 file_o = open(file_name, "w")
