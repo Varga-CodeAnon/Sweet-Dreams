@@ -52,11 +52,10 @@ def version_catcher(file_name):
                 field = field.split('/')
                 version.append(field[6])
                 i+=1
-    print(version)
     scan_f.close
     return version
 
-    
+
 def nmap_init(target,file_name):
     """Start the nmap scan and begin the information gathering"""
     animated_loading("Nmap -sS scan")
@@ -81,8 +80,10 @@ def nmap_sv(dicto,target,file_name):
     for port in dicto:
         ports += port + ","
     ports = ports[:-1]
-    # subprocess.run(["nmap",ports,"-sV",target,"--append-output","-oG","sV_temp","-oN",file_name,"-O"])#, stdout=subprocess.DEVNULL)
-    subprocess.run(["nmap",ports,"-sV",target,"--append-output","-oG","sV_temp","-oN",file_name,"-O"], stdout=subprocess.DEVNULL)    
+    subprocess.run(["nmap",ports,"-sV",target,"--append-output","-oG","sV_temp","-oN",file_name,"-O"], stdout=subprocess.DEVNULL)
+    results = version_catcher("sV_temp")
+    
+    return results
 
 
 def animated_loading(text):
@@ -124,9 +125,16 @@ target = sys.argv[1]
 print("[*] Start time: ",datetime.datetime.now().time())
 start_time = time.time()
 port_serv = nmap_init(sys.argv[1],sys.argv[2])  # initialization
-nmap_sv(port_serv,target,sys.argv[2])  # grepable output in the file sV_temp 
-# TODO: faire en sorte qu'il retourne une liste classé par port avec les info nécessaire
-# comme ça, il suffira de prendre l'indice de la liste pour remplir le noeud cherry tree
+versions = nmap_sv(port_serv,target,sys.argv[2])  # grepable output in the file sV_temp
+
+for element in versions:
+    print(element)
+# TODO: Body
+# Pour chaque clé du dico:
+#   créer un noeud dont l'entête est le résultat de sV (l'indice de la version est le même que celui de la clé correspondante)
+#   Puis, remplir sous l'entête avec 22.py, 80.py
+#   Enfin, conclure avec le tail du noeud
+
 # //////////// WORK AREA //////////////
 
 os = "FIXME:"
@@ -136,12 +144,7 @@ services_table = "FIXME:"
 
 # cherry_header(file_o,target,os)
 
-# TODO: Body
-# Pour chaque clé du dico:
-#   créer un noeud dont l'entête est le résultat de sV
-#   Puis, remplir sous l'entête avec 22.py, 80.py
-#   Enfin, conclure avec le tail du noeud
-
+# BODY
 
 # cherry_tail(file_o)
 
