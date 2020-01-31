@@ -39,6 +39,24 @@ def service_catcher(file_name):
     return results
 
 
+def version_catcher(file_name):
+    """Catch from a nmap grepable output file the version of actives services"""
+    scan_f = open(file_name,"r")
+    version = []
+    for line in scan_f:  # read the file line by line
+        if "Ports:" in line:
+            fields = line.split(':')[2:-2]  # split the output and only keep the ports fields
+            fields = fields[0].split(',')
+            i=0
+            for field in fields:
+                field = field.split('/')
+                version.append(field[6])
+                i+=1
+    print(version)
+    scan_f.close
+    return version
+
+    
 def nmap_init(target,file_name):
     """Start the nmap scan and begin the information gathering"""
     animated_loading("Nmap -sS scan")
