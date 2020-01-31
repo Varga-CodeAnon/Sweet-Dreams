@@ -69,6 +69,24 @@ def animated_loading():
         i+=1
     sys.stdout.write("\r[*] Let's start the information gathering\n")
 
+
+def cherry_header(file_ctd,target,op_sys):
+    """Write a cherrytree header (xml format)"""
+    file_ctd.write(
+"""<?xml version="1.0" ?>
+<cherrytree>
+    <node custom_icon_id="14" foreground="" is_bold="True" name="SweetDreams" prog_lang="custom-colors" readonly="False" tags="" ts_creation="0.0" ts_lastsave="0.0" unique_id="1">\
+        <rich_text weight="heavy">Target:</rich_text>
+        <rich_text> """ + target + """\n</rich_text>
+        <rich_text weight="heavy">OS:</rich_text>
+		<rich_text> """ + op_sys + """\n</rich_text>""")
+
+def cherry_tail(file_ctd):
+    """Write a cherrytree end of file (xml format)"""
+    file_o.write(
+"""	</node>
+</cherrytree>""")
+
 # =========================== MAIN ===========================
 if len(sys.argv) != 3:
     error_display(1)
@@ -78,23 +96,16 @@ with open(".local/ascii.txt", 'r') as ascii:  # for the banner
 print("[*] Start time: ",datetime.datetime.now().time())
 start_time = time.time()
 # //////////// WORK AREA //////////////
-file_name = sys.argv[2] + ".ctd"
+file_name = sys.argv[2]
 target = sys.argv[1]
 os = "FIXME:"
 services_table = "FIXME:"
 file_o = open(file_name, "w")
-file_o.write(
-"""<?xml version="1.0" ?>
-<cherrytree>
-    <node custom_icon_id="14" foreground="" is_bold="True" name="SweetDreams" prog_lang="custom-colors" readonly="False" tags="" ts_creation="0.0" ts_lastsave="0.0" unique_id="1">\
-        <rich_text weight="heavy">Target:</rich_text>
-        <rich_text> """ + target + """\n</rich_text>
-        <rich_text weight="heavy">OS:</rich_text>
-		<rich_text> """ + os + """\n</rich_text>""")
+# Header
+cherry_header(file_o,target,os)
 
-file_o.write(
-"""	</node>
-</cherrytree>""")
+# Tail
+cherry_tail(file_o)
 
 # /////////////////////////////////////
 print(nmap_init(sys.argv[1],sys.argv[2]))
