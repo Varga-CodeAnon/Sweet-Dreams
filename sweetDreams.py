@@ -54,6 +54,19 @@ def nmap_init(target,file_name):
     return services
 
 
+def nmap_sv(dicto):
+    """Execute the nmap version scan (sV) and save the output in a temporary file"""
+    ports = "-p"
+    for port in dicto:
+        ports += port + ","
+    ports = ports[:-1]
+    # try:
+    #     subprocess.run(["nmap",ports,"-sV",target,"-oG sV_temp -oN sV_output"], stdout=subprocess.DEVNULL, check=True)
+    # except subprocess.CalledProcessError:
+    #     error_display(2)
+    print("nmap",ports,"-sV",target,"-oG sV_temp -oN sV_output")
+
+
 def animated_loading():
     """A useless loading animation"""
     i = 0
@@ -95,21 +108,32 @@ with open(".local/ascii.txt", 'r') as ascii:  # for the banner
 
 print("[*] Start time: ",datetime.datetime.now().time())
 start_time = time.time()
+port_serv = nmap_init(sys.argv[1],sys.argv[2])  # initialization
+nmap_sv(port_serv)  # grepable output in the file sV_temp 
+# TODO: faire en sorte qu'il retourne une liste classé par port avec les info nécessaire
+# comme ça, il suffira de prendre l'indice de la liste pour remplir le noeud cherry tree
 # //////////// WORK AREA //////////////
 file_name = sys.argv[2]
 target = sys.argv[1]
 os = "FIXME:"
 services_table = "FIXME:"
 file_o = open(file_name, "w")
-# Header
-cherry_header(file_o,target,os)
 
-# Tail
-cherry_tail(file_o)
+
+animated_loading()
+
+# cherry_header(file_o,target,os)
+
+# TODO: Body
+# Pour chaque clé du dico:
+#   créer un noeud dont l'entête est le résultat de sV
+#   Puis, remplir sous l'entête avec 22.py, 80.py
+#   Enfin, conclure avec le tail du noeud
+
+
+# cherry_tail(file_o)
 
 # /////////////////////////////////////
-print(nmap_init(sys.argv[1],sys.argv[2]))
 end_time = time.time()
-# file_o.write("Coucou\n")
-# file_o.close
+file_o.close
 print("[*] Done, ", end_time-start_time," elapsed !")
