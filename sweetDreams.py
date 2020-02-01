@@ -127,25 +127,26 @@ start_time = time.time()
 port_serv = nmap_init(sys.argv[1],sys.argv[2])  # initialization
 versions = nmap_sv(port_serv,target,sys.argv[2])  # grepable output in the file sV_temp
 
-for element in versions:
-    print(element)
-# TODO: Body
-# Pour chaque clé du dico:
-#   créer un noeud dont l'entête est le résultat de sV (l'indice de la version est le même que celui de la clé correspondante)
-#   Puis, remplir sous l'entête avec 22.py, 80.py
-#   Enfin, conclure avec le tail du noeud
-
 # //////////// WORK AREA //////////////
-
 os = "FIXME:"
 services_table = "FIXME:"
+# --- HEAD ---
 # file_o = open(file_name, "x")
-
-
 # cherry_header(file_o,target,os)
 
-# BODY
+# --- BODY ---
+for i,port,serv in enumerate(port_serv.items()):
+    node_file = cherry_node_head(port,serv,versions[i])  # TODO: à implémenter
+    # import 80.py ou exec 80.py
+    cherry_node_tail(node_file)
+    insert_node(node_file,filename)
+    # TODO: Body
+    # Pour chaque clé du dico:
+    #   créer un noeud dont l'entête est le résultat de sV (l'indice de la version est le même que celui de la clé correspondante)
+    #   Puis, remplir sous l'entête avec 22.py, 80.py
+    #   Enfin, conclure avec le tail du noeud
 
+# --- TAIL ---
 # cherry_tail(file_o)
 
 # /////////////////////////////////////
