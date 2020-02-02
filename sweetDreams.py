@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+# -*- coding: utf-8 -*-
 import datetime
 import itertools
 import os
@@ -94,6 +95,24 @@ def animated_loading(text):
     #     sys.stdout.flush()
     #     time.sleep(0.1)
     # sys.stdout.write("\r[*] "+text+" Done!\n")
+
+
+def os_guess(sv_file):
+    """Pick up the OS version from the nmap sV scan output file"""
+    scan_f = open(sv_file,"r")
+    os_version = ""
+    
+    line = scan_f.readline()
+    while line and os_version == "":
+        if "OS details:" in line:
+            os_version = line[12:].split(',')[0]  # split the output and only keep the os version
+        line = scan_f.readline()
+
+    scan_f.close
+    if os_version == "":
+        os_version = "Not found"
+    
+    return os_version
 
 
 def cherry_header(file_ctd,target,op_sys):
