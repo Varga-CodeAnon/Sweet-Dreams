@@ -147,11 +147,11 @@ port_serv = nmap_init(sys.argv[1],sys.argv[2])  # initialization
 versions = nmap_sv(port_serv,target,sys.argv[2])  # grepable output in the file sV_temp
 
 # //////////// WORK AREA //////////////
-os = "FIXME:"
-services_table = "FIXME:"
+os = "TODO: à implémenter à cherry head"
+services_table = "TODO: à implémenter à cherry head"
 # --- HEAD ---
-# file_o = open(file_name, "x")
-# cherry_header(file_o,target,os)
+file_o = open(file_name, "a")
+cherry_header(file_o,target,os)
 
 # --- BODY ---
 for i,port,serv in enumerate(port_serv.items()):
@@ -166,7 +166,7 @@ for i,port,serv in enumerate(port_serv.items()):
     #   Enfin, conclure avec le tail du noeud
 
 # --- TAIL ---
-# cherry_tail(file_o)
+cherry_tail(file_o)
 
 # /////////////////////////////////////
 end_time = time.time()
