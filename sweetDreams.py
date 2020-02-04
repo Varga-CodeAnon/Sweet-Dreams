@@ -61,6 +61,7 @@ def nmap_init(target,file_name):
     """Start the nmap scan and begin the information gathering"""
     animated_loading("Nmap -sS scan")
     temp = file_name + ".temp"
+    file_name += ".txt"
     try:
         subprocess.run(["nmap","-p-","-sS",target,"-oG", temp, "-oN", file_name], stdout=subprocess.DEVNULL, check=True)
     except subprocess.CalledProcessError:
@@ -77,6 +78,7 @@ def nmap_init(target,file_name):
 def nmap_sv(dicto,target,file_name):
     """Execute the nmap version scan (sV) and save the output in a temporary file"""
     animated_loading("Nmap -sV scan")
+    file_name += ".txt"
     ports = "-p"
     for port in dicto:
         ports += port + ","
@@ -147,18 +149,18 @@ port_serv = nmap_init(sys.argv[1],sys.argv[2])  # initialization
 versions = nmap_sv(port_serv,target,sys.argv[2])  # grepable output in the file sV_temp
 
 # //////////// WORK AREA //////////////
-os = "TODO: à implémenter à cherry head"
+os = os_guess(file_name + ".txt")
 services_table = "TODO: à implémenter à cherry head"
 # --- HEAD ---
 file_o = open(file_name, "a")
 cherry_header(file_o,target,os)
 
 # --- BODY ---
-for i,port,serv in enumerate(port_serv.items()):
-    node_file = cherry_node_head(port,serv,versions[i])  # TODO: à implémenter
+# for i,port,serv in enumerate(port_serv.items()):
+    # node_file = cherry_node_head(port,serv,versions[i])  # TODO: à implémenter
     # import 80.py ou exec 80.py
-    cherry_node_tail(node_file)
-    insert_node(node_file,filename)
+    # cherry_node_tail(node_file)
+    # insert_node(node_file,filename)
     # TODO: Body
     # Pour chaque clé du dico:
     #   créer un noeud dont l'entête est le résultat de sV (l'indice de la version est le même que celui de la clé correspondante)
