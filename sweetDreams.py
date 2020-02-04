@@ -108,8 +108,9 @@ def os_guess(sv_file):
     while line and os_version == "":
         if "OS details:" in line:
             os_version = line[12:].split(',')[0]  # split the output and only keep the os version
+        elif "OS guesses:" in line:
+            os_version = "Just guessing... " + line[23:].split(',')[0]  # split the output and only keep the os version
         line = scan_f.readline()
-
     scan_f.close
     if os_version == "":
         os_version = "Not found"
