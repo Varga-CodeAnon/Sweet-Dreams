@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<cherrytree>
+	<node custom_icon_id="14" foreground="" is_bold="True" name="SweetDreams" prog_lang="custom-colors" readonly="False" tags="" ts_creation="0.0" ts_lastsave="1580841113.15" unique_id="1">
+		<rich_text weight="heavy">Target:</rich_text>
+		<rich_text> 127.0.0.1
+</rich_text>
+		<rich_text weight="heavy">OS:</rich_text>
+		<rich_text> TODO: à implémenter à cherry head
+</rich_text>
+		<rich_text weight="heavy">Services:</rich_text>
+		<rich_text>
+</rich_text>
+		<rich_text justification="left"></rich_text>
+		<table char_offset="66" col_max="200" col_min="40">
+			<row>
+				<cell>22</cell>
+				<cell>ssh</cell>
+				<cell>OpenSSH 7.8</cell>
+			</row>
+			<row>
+				<cell></cell>
+				<cell></cell>
+				<cell></cell>
+			</row>
+			<row>
+				<cell></cell>
+				<cell></cell>
+				<cell></cell>
+			</row>
+			<row>
+				<cell>Port</cell>
+				<cell>Protocol</cell>
+				<cell>Version</cell>
+			</row>
+		</table>
+		<node custom_icon_id="0" foreground="" is_bold="False" name="22" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1580840980.83" ts_lastsave="1580840998.73" unique_id="2">
+			<rich_text weight="heavy">Version:</rich_text>
+			<rich_text>  blabla
+---
+Lorem ipsum</rich_text>
+		</node>
+		<node custom_icon_id="0" foreground="" is_bold="False" name="80" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1580840983.4" ts_lastsave="1580841014.89" unique_id="3">
+			<rich_text weight="heavy">Version:</rich_text>
+			<rich_text>  blabla
+---
+Lorem ipsum</rich_text>
+		</node>
+	</node>
+</cherrytree>
