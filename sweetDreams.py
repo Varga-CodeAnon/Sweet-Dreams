@@ -46,11 +46,14 @@ def version_catcher(file_name):
     version = []
     for line in scan_f:  # read the file line by line
         if "Ports:" in line:
-            fields = line.split(':')[2:-2]  # split the output and only keep the ports fields
-            fields = fields[0].split(',')
+            fields = line.split('Ports: ')[1]  # split the output and only keep the ports fields
+            fields = fields.split('Index: ')[0]
+            fields = fields.split(',')
             i=0
             for field in fields:
                 field = field.split('/')
+                if field[6] == '':
+                    field[6] = "Not found..."
                 version.append(field[6])
                 i+=1
     scan_f.close
@@ -113,9 +116,38 @@ def os_guess(sv_file):
         line = scan_f.readline()
     scan_f.close
     if os_version == "":
-        os_version = "Not found"
+        os_version = "Not found..."
     
     return os_version
+
+
+def cherry_table(file_ctd,port_serv,versions):
+    """Write a table inside a cherrytree file"""
+    file_ctd.write(
+        """\n        <rich_text justification="left"></rich_text>
+		<table char_offset="66" col_max="200" col_min="40">""")
+    #test zone
+    # for i,(port,serv) in enumerate(port_serv.items()):
+    #     print(i,port,serv)
+    # for elem in versions:
+    #     print(elem)
+    #=====    
+    for i,(port,serv) in enumerate(port_serv.items()):
+        if serv == '':
+            serv = 'Not found...'
+        file_ctd.write(
+"""\n            <row>
+                <cell>"""+port+"""</cell>
+                <cell>"""+serv+"""</cell>
+                <cell>"""+versions[i]+"""</cell>
+            </row>""")
+    file_ctd.write(
+"""\n            <row>
+				<cell>Port</cell>
+				<cell>Protocol</cell>
+				<cell>Version</cell>
+			</row>
+        </table>""")
 
 
 def cherry_header(file_ctd,target,op_sys):
@@ -129,17 +161,15 @@ def cherry_header(file_ctd,target,op_sys):
         <rich_text weight="heavy">OS:</rich_text>
 		<rich_text> """ + op_sys + """\n</rich_text>
         <rich_text weight="heavy">Services:</rich_text>
-		<rich_text>\n</rich_text>
-        <rich_text justification="left"></rich_text>
-		<table char_offset="66" col_max="200" col_min="40">""")
-        # rows & cells
-    file_ctd.write("\n        </table>")
+		<rich_text>\n\n</rich_text>""")
+    
 
 def cherry_tail(file_ctd):
     """Write a cherrytree end of file (xml format)"""
     file_ctd.write(
 """\n    </node>
-</cherrytree>""")
+</cherrytree>\n""")
+
 
 # =========================== MAIN ===========================
 if len(sys.argv) != 3:
@@ -150,7 +180,7 @@ with open(".local/ascii.txt", 'r') as ascii:  # for the banner
 file_name = sys.argv[2]
 target = sys.argv[1]
 
-print("[*] Start time: ",datetime.datetime.now().time())
+print("[*] Start time:",time.strftime("%H:%M:%S"))
 start_time = time.time()
 port_serv = nmap_init(sys.argv[1],sys.argv[2])  # initialization
 versions = nmap_sv(port_serv,target,sys.argv[2])  # grepable output in the file sV_temp
@@ -161,7 +191,7 @@ services_table = "TODO: à implémenter à cherry head"
 # --- HEAD ---
 file_o = open(file_name, "a")
 cherry_header(file_o,target,os)
-
+cherry_table(file_o, port_serv, versions)
 # --- BODY ---
 # for i,port,serv in enumerate(port_serv.items()):
     # node_file = cherry_node_head(port,serv,versions[i])  # TODO: à implémenter
