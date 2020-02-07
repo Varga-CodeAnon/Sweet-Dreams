@@ -126,12 +126,6 @@ def cherry_table(file_ctd,port_serv,versions):
     file_ctd.write(
         """\n        <rich_text justification="left"></rich_text>
 		<table char_offset="66" col_max="200" col_min="40">""")
-    #test zone
-    # for i,(port,serv) in enumerate(port_serv.items()):
-    #     print(i,port,serv)
-    # for elem in versions:
-    #     print(elem)
-    #=====    
     for i,(port,serv) in enumerate(port_serv.items()):
         if serv == '':
             serv = 'Not found...'
@@ -186,9 +180,8 @@ port_serv = nmap_init(sys.argv[1],sys.argv[2])  # initialization
 versions = nmap_sv(port_serv,target,sys.argv[2])  # grepable output in the file sV_temp
 
 # //////////// WORK AREA //////////////
-os = os_guess(file_name + ".txt")
-services_table = "TODO: à implémenter à cherry head"
 # --- HEAD ---
+os = os_guess(file_name + ".txt")
 file_o = open(file_name, "a")
 cherry_header(file_o,target,os)
 cherry_table(file_o, port_serv, versions)
@@ -206,10 +199,10 @@ cherry_table(file_o, port_serv, versions)
 
 # --- TAIL ---
 cherry_tail(file_o)
-
 # /////////////////////////////////////
+
 end_time = time.time()
 hours, rem = divmod(end_time-start_time, 3600)
 minutes, seconds = divmod(rem, 60)
 print("[*] Done, {:0>2}:{:0>2}:{:05.2f} elapsed !".format(int(hours),int(minutes),seconds))
-# file_o.close
+file_o.close
