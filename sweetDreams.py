@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import datetime
+import inspect
 import itertools
 import os
 import os.path
@@ -10,6 +11,7 @@ import time
 from modules.cherrytree import *
 from modules.ssh import *
 from modules.http import *
+from modules.postgresql import *
 
 
 def error_display(code):
@@ -136,21 +138,36 @@ target = sys.argv[1]
 
 print("[*] Start time:",time.strftime("%H:%M:%S"))
 start_time = time.time()
-port_serv = nmap_init(sys.argv[1],sys.argv[2])  # initialization
-versions = nmap_sv(port_serv,target,sys.argv[2])  # grepable output in the file sV_temp
+# --- Test OFF ---
+# port_serv = nmap_init(sys.argv[1],sys.argv[2])  # initialization
+# versions = nmap_sv(port_serv,target,sys.argv[2])  # grepable output in the file sV_temp
+# ----------------
+# --- Test  ON ---
+versions = version_catcher("sV_temp")
+port_serv = {
+    "139":"netbios-ssn",
+    "445":"microsoft-ds",
+    "1716":"xmsg",
+    "5432":"postgresql",
+    "5433":"pyrrho",
+    "5985":"wsman",
+    "6463":"unknown",
+    "8081":"blackice-icecap",
+    "9000":"cslistener"}
+# ----------------
 
 # //////////// WORK AREA //////////////
-# --- HEAD ---
-os = os_guess(file_name + ".txt")
+# ----- HEAD -----
+os_found = os_guess(file_name + ".txt")
 file_o = open(file_name, "a")
-cherry_header(file_o,target,os)
+cherry_header(file_o,target,os_found)
 cherry_table(file_o, port_serv, versions)
-# --- BODY ---
+# ----- BODY -----
 for i,(port,serv) in enumerate(port_serv.items()):
-    function_name = serv + ".py"
-    if os.path.isfile("modules/" + function_name):
-        exec(function_name)
-# --- TAIL ---
+    if os.path.exists("modules/{}.py".format(serv)):
+        fct_name = "main_" + serv +"()"
+        exec(fct_name)
+# ----- TAIL -----
 cherry_tail(file_o)
 # /////////////////////////////////////
 

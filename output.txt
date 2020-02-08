@@ -1,0 +1,125 @@
+# Nmap 7.80 scan initiated Sat Feb  8 07:52:32 2020 as: nmap -p- -sS -oG output.temp -oN output.txt 127.0.0.1
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.0000060s latency).
+Not shown: 65526 closed ports
+PORT     STATE SERVICE
+139/tcp  open  netbios-ssn
+445/tcp  open  microsoft-ds
+1716/tcp open  xmsg
+5432/tcp open  postgresql
+5433/tcp open  pyrrho
+5985/tcp open  wsman
+6463/tcp open  unknown
+8081/tcp open  blackice-icecap
+9000/tcp open  cslistener
+
+# Nmap done at Sat Feb  8 07:52:32 2020 -- 1 IP address (1 host up) scanned in 0.87 seconds
+# Nmap 7.80 scan initiated Sat Feb  8 07:52:33 2020 as: nmap -p139,445,1716,5432,5433,5985,6463,8081,9000 -sV --append-output -oG sV_temp -oN output.txt -O 127.0.0.1
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000082s latency).
+
+PORT     STATE SERVICE          VERSION
+139/tcp  open  netbios-ssn      Samba smbd 4.6.2
+445/tcp  open  netbios-ssn      Samba smbd 4.6.2
+1716/tcp open  xmsg?
+5432/tcp open  postgresql       PostgreSQL DB 9.6.0 or later
+5433/tcp open  pyrrho?
+5985/tcp open  http             TwistedWeb httpd 18.9.0
+6463/tcp open  unknown
+8081/tcp open  blackice-icecap?
+9000/tcp open  cslistener?
+5 services unrecognized despite returning data. If you know the service/version, please submit the following fingerprints at https://nmap.org/cgi-bin/submit.cgi?new-service :
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port5432-TCP:V=7.80%I=7%D=2/8%Time=5E3E5AB7%P=x86_64-pc-linux-gnu%r(SMB
+SF:ProgNeg,8C,"E\0\0\0\x8bSFATAL\0VFATAL\0C0A000\0Munsupported\x20frontend
+SF:\x20protocol\x2065363\.19778:\x20server\x20supports\x202\.0\x20to\x203\
+SF:.0\0Fpostmaster\.c\0L2010\0RProcessStartupPacket\0\0");
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port5433-TCP:V=7.80%I=7%D=2/8%Time=5E3E5AB7%P=x86_64-pc-linux-gnu%r(Ker
+SF:beros,9E,"E\0\0\0\x9dSFATAL\0VFATAL\0C0A000\0MProtocole\x20non\x20suppo
+SF:rt\xc3\xa9e\x20de\x20l'interface\x2027265\.28208\x20:\x20le\x20serveur\
+SF:x20supporte\x20de\x202\.0\x20\xc3\xa0\n3\.0\0Fpostmaster\.c\0L2054\0RPr
+SF:ocessStartupPacket\0\0")%r(SMBProgNeg,9E,"E\0\0\0\x9dSFATAL\0VFATAL\0C0
+SF:A000\0MProtocole\x20non\x20support\xc3\xa9e\x20de\x20l'interface\x20653
+SF:63\.19778\x20:\x20le\x20serveur\x20supporte\x20de\x202\.0\x20\xc3\xa0\n
+SF:3\.0\0Fpostmaster\.c\0L2054\0RProcessStartupPacket\0\0");
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port6463-TCP:V=7.80%I=7%D=2/8%Time=5E3E5ABC%P=x86_64-pc-linux-gnu%r(Get
+SF:Request,B6,"HTTP/1\.1\x20401\x20Unauthorized\r\nContent-Length:\x2045\r
+SF:\nContent-Type:\x20application/json\r\nDate:\x20Sat,\x2008\x20Feb\x2020
+SF:20\x2006:52:44\x20GMT\r\nConnection:\x20close\r\n\r\n{\"code\":0,\"mess
+SF:age\":\"Authorization\x20Required\"}")%r(HTTPOptions,8A,"HTTP/1\.1\x202
+SF:00\x20OK\r\nContent-Length:\x2011\r\nContent-Type:\x20application/json\
+SF:r\nDate:\x20Sat,\x2008\x20Feb\x202020\x2006:52:44\x20GMT\r\nConnection:
+SF:\x20close\r\n\r\n{\"body\":\"\"}")%r(RTSPRequest,1C,"HTTP/1\.1\x20400\x
+SF:20Bad\x20Request\r\n\r\n")%r(RPCCheck,1C,"HTTP/1\.1\x20400\x20Bad\x20Re
+SF:quest\r\n\r\n")%r(DNSVersionBindReqTCP,1C,"HTTP/1\.1\x20400\x20Bad\x20R
+SF:equest\r\n\r\n")%r(DNSStatusRequestTCP,1C,"HTTP/1\.1\x20400\x20Bad\x20R
+SF:equest\r\n\r\n")%r(Help,1C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n"
+SF:)%r(SSLSessionReq,1C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n")%r(Te
+SF:rminalServerCookie,1C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n")%r(T
+SF:LSSessionReq,1C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n")%r(Kerbero
+SF:s,1C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n")%r(SMBProgNeg,1C,"HTT
+SF:P/1\.1\x20400\x20Bad\x20Request\r\n\r\n")%r(X11Probe,1C,"HTTP/1\.1\x204
+SF:00\x20Bad\x20Request\r\n\r\n")%r(FourOhFourRequest,B6,"HTTP/1\.1\x20401
+SF:\x20Unauthorized\r\nContent-Length:\x2045\r\nContent-Type:\x20applicati
+SF:on/json\r\nDate:\x20Sat,\x2008\x20Feb\x202020\x2006:52:45\x20GMT\r\nCon
+SF:nection:\x20close\r\n\r\n{\"code\":0,\"message\":\"Authorization\x20Req
+SF:uired\"}")%r(LPDString,1C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n")
+SF:%r(LDAPSearchReq,1C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n")%r(LDA
+SF:PBindReq,1C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n")%r(SIPOptions,
+SF:1C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n")%r(LANDesk-RC,1C,"HTTP/
+SF:1\.1\x20400\x20Bad\x20Request\r\n\r\n")%r(TerminalServer,1C,"HTTP/1\.1\
+SF:x20400\x20Bad\x20Request\r\n\r\n")%r(NCP,1C,"HTTP/1\.1\x20400\x20Bad\x2
+SF:0Request\r\n\r\n")%r(NotesRPC,1C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\
+SF:n\r\n")%r(JavaRMI,1C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n")%r(or
+SF:acle-tns,1C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n");
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port8081-TCP:V=7.80%I=7%D=2/8%Time=5E3E5AB7%P=x86_64-pc-linux-gnu%r(Get
+SF:Request,5B,"HTTP/1\.0\x20405\x20Method\x20Not\x20Allowed\r\nDate:\x20Sa
+SF:t,\x2008\x20Feb\x202020\x2006:52:39\x20GMT\r\nContent-Length:\x200\r\n\
+SF:r\n")%r(FourOhFourRequest,5B,"HTTP/1\.0\x20405\x20Method\x20Not\x20Allo
+SF:wed\r\nDate:\x20Sat,\x2008\x20Feb\x202020\x2006:52:39\x20GMT\r\nContent
+SF:-Length:\x200\r\n\r\n")%r(SIPOptions,67,"HTTP/1\.1\x20400\x20Bad\x20Req
+SF:uest\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x2
+SF:0close\r\n\r\n400\x20Bad\x20Request")%r(WWWOFFLEctrlstat,67,"HTTP/1\.1\
+SF:x20400\x20Bad\x20Request\r\nContent-Type:\x20text/plain;\x20charset=utf
+SF:-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request")%r(GenericLine
+SF:s,67,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20text/plain
+SF:;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request
+SF:")%r(HTTPOptions,188,"HTTP/1\.0\x20204\x20No\x20Content\r\nAccess-Contr
+SF:ol-Allow-Headers:\x20Accept,\x20Content-Type,\x20Content-Length,\x20Acc
+SF:ept-Encoding,\x20X-CSRF-Token,\x20Authorization\r\nAccess-Control-Allow
+SF:-Methods:\x20POST,\x20GET,\x20OPTIONS,\x20PUT,\x20DELETE\r\nAccess-Cont
+SF:rol-Allow-Origin:\x20\*\r\nReferrer-Policy:\x20same-origin\r\nX-Content
+SF:-Type-Options:\x20nosniff\r\nX-Frame-Options:\x20DENY\r\nX-Xss-Protecti
+SF:on:\x201;\x20mode=block\r\nDate:\x20Sat,\x2008\x20Feb\x202020\x2006:52:
+SF:39\x20GMT\r\n\r\n")%r(RTSPRequest,67,"HTTP/1\.1\x20400\x20Bad\x20Reques
+SF:t\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x20cl
+SF:ose\r\n\r\n400\x20Bad\x20Request")%r(Help,67,"HTTP/1\.1\x20400\x20Bad\x
+SF:20Request\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\nConnectio
+SF:n:\x20close\r\n\r\n400\x20Bad\x20Request")%r(SSLSessionReq,67,"HTTP/1\.
+SF:1\x20400\x20Bad\x20Request\r\nContent-Type:\x20text/plain;\x20charset=u
+SF:tf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request")%r(TerminalS
+SF:erverCookie,67,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20
+SF:text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\
+SF:x20Request")%r(TLSSessionReq,67,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n
+SF:Content-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x20close\r
+SF:\n\r\n400\x20Bad\x20Request");
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port9000-TCP:V=7.80%I=7%D=2/8%Time=5E3E5AB6%P=x86_64-pc-linux-gnu%r(Gen
+SF:ericLines,30,"HTTP/1\.1\x20400\x20Bad\x20HTTP\x20request\x20status\x20l
+SF:ine\x20''\r\n\r\n")%r(GetRequest,34,"HTTP/1\.1\x20505\x20Unsupported\x2
+SF:0HTTP\x20version\x20'HTTP/1\.0'\r\n\r\n")%r(HTTPOptions,32,"HTTP/1\.1\x
+SF:20405\x20HTTP\x20method\x20'OPTIONS'\x20not\x20allowed\r\n\r\n")%r(RTSP
+SF:Request,32,"HTTP/1\.1\x20405\x20HTTP\x20method\x20'OPTIONS'\x20not\x20a
+SF:llowed\r\n\r\n")%r(FourOhFourRequest,34,"HTTP/1\.1\x20505\x20Unsupporte
+SF:d\x20HTTP\x20version\x20'HTTP/1\.0'\r\n\r\n")%r(SIPOptions,32,"HTTP/1\.
+SF:1\x20405\x20HTTP\x20method\x20'OPTIONS'\x20not\x20allowed\r\n\r\n");
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Aggressive OS guesses: Linux 2.6.32 (96%), Linux 3.8 - 4.14 (95%), Linux 3.1 (95%), Linux 3.2 (95%), AXIS 210A or 211 Network Camera (Linux 2.6.17) (94%), Linux 3.7 - 3.11 (93%), Linux 3.8 - 3.9 (93%), Linux 3.7 - 3.10 (93%), ASUS RT-N56U WAP (Linux 3.4) (93%), Linux 3.16 (93%)
+No exact OS matches for host (test conditions non-ideal).
+Network Distance: 0 hops
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Sat Feb  8 07:55:14 2020 -- 1 IP address (1 host up) scanned in 161.26 seconds
