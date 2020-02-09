@@ -127,52 +127,50 @@ def os_guess(sv_file):
     return os_version
 
 
-# =========================== MAIN ===========================
+# ==========================[ MAIN ]===========================
 if len(sys.argv) != 3:
     error_display(1)
+
 with open(".local/ascii.txt", 'r') as ascii:  # for the banner
     print(ascii.read())
 
-file_name = sys.argv[2]
-target = sys.argv[1]
-
 print("[*] Start time:",time.strftime("%H:%M:%S"))
 start_time = time.time()
-# --- Test OFF ---
-# port_serv = nmap_init(sys.argv[1],sys.argv[2])  # initialization
-# versions = nmap_sv(port_serv,target,sys.argv[2])  # grepable output in the file sV_temp
-# ----------------
-# --- Test  ON ---
-versions = version_catcher("sV_temp")
-port_serv = {
-    "139":"netbios-ssn",
-    "445":"microsoft-ds",
-    "1716":"xmsg",
-    "5432":"postgresql",
-    "5433":"pyrrho",
-    "5985":"wsman",
-    "6463":"unknown",
-    "8081":"blackice-icecap",
-    "9000":"cslistener"}
-# ----------------
-
-# //////////// WORK AREA //////////////
-# ----- HEAD -----
-os_found = os_guess(file_name + ".txt")
+target = sys.argv[1]
+file_name = sys.argv[2]
 file_o = open(file_name, "a")
+# ---[ Test OFF ]---
+port_serv = nmap_init(sys.argv[1],sys.argv[2])  # initialization
+versions = nmap_sv(port_serv,target,sys.argv[2])  # grepable output in the file sV_temp
+# ------------------
+# ---[ Test  ON ]---
+# versions = version_catcher("sV_temp")
+# port_serv = {
+#     "139":"netbios-ssn",
+#     "445":"microsoft-ds",
+#     "1716":"xmsg",
+#     "5432":"postgresql",
+#     "5433":"pyrrho",
+#     "5985":"wsman",
+#     "6463":"unknown",
+#     "8081":"blackice-icecap",
+#     "9000":"cslistener"}
+# ------------------
+os_found = os_guess(file_name + ".txt")
+# -----[ HEAD ]-----
 cherry_header(file_o,target,os_found)
 cherry_table(file_o, port_serv, versions)
-# ----- BODY -----
+# -----[ BODY ]-----
 for i,(port,serv) in enumerate(port_serv.items()):
     if os.path.exists("modules/{}.py".format(serv)):
         fct_name = "main_" + serv +"()"
         exec(fct_name)
-# ----- TAIL -----
+# -----[ TAIL ]-----
 cherry_tail(file_o)
-# /////////////////////////////////////
-
+# ------------------
 end_time = time.time()
 hours, rem = divmod(end_time-start_time, 3600)
 minutes, seconds = divmod(rem, 60)
 print("[*] Done, {:0>2}:{:0>2}:{:05.2f} elapsed !".format(int(hours),int(minutes),seconds))
 file_o.close
+# =========================== -@@- ===========================
