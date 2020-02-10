@@ -1,0 +1,12 @@
+# Nmap 7.80 scan initiated Sat Feb  8 07:52:33 2020 as: nmap -p139,445,1716,5432,5433,5985,6463,8081,9000 -sV --append-output -oG sV_temp -oN output.txt -O 127.0.0.1
+Host: 127.0.0.1 (localhost)	Status: Up
+Host: 127.0.0.1 (localhost)	Ports: 139/open/tcp//netbios-ssn//Samba smbd 4.6.2/, 445/open/tcp//netbios-ssn//Samba smbd 4.6.2/, 1716/open/tcp//xmsg?///, 5432/open/tcp//postgresql//PostgreSQL DB 9.6.0 or later/, 5433/open/tcp//pyrrho?///, 5985/open/tcp//http//TwistedWeb httpd 18.9.0/, 6463/open/tcp//unknown///, 8081/open/tcp//blackice-icecap?///, 9000/open/tcp//cslistener?///	Seq Index: 255	IP ID Seq: All zeros
+# Nmap done at Sat Feb  8 07:55:14 2020 -- 1 IP address (1 host up) scanned in 161.26 seconds
+# Nmap 7.80 scan initiated Sun Feb  9 22:10:34 2020 as: nmap -p139,445,1716,5432,5433,5985,6463,8081,9000,27036,27060,57343 -sV --append-output -oG sV_temp -oN output.txt -O 127.0.0.1
+Host: 127.0.0.1 (localhost)	Status: Up
+Host: 127.0.0.1 (localhost)	Ports: 139/open/tcp//netbios-ssn//Samba smbd 4.6.2/, 445/open/tcp//netbios-ssn//Samba smbd 4.6.2/, 1716/open/tcp//xmsg?///, 5432/open/tcp//postgresql//PostgreSQL DB 9.6.0 or later/, 5433/open/tcp//pyrrho?///, 5985/open/tcp//http//TwistedWeb httpd 18.9.0/, 6463/open/tcp//unknown///, 8081/open/tcp//blackice-icecap?///, 9000/open/tcp//cslistener?///, 27036/open/tcp//ssl|steam//Valve Steam In-Home Streaming service (TLSv1.2 PSK)/, 27060/open/tcp/////, 57343/open/tcp/////	Seq Index: 261	IP ID Seq: All zeros
+# Nmap done at Sun Feb  9 22:13:15 2020 -- 1 IP address (1 host up) scanned in 161.33 seconds
+# Nmap 7.80 scan initiated Mon Feb 10 07:20:30 2020 as: nmap -p139,445,1716,5432,5433,5985,6463,6942,8081,9000,63342 -sV --append-output -oG sV_temp -oN output.txt -O 127.0.0.1
+Host: 127.0.0.1 (localhost)	Status: Up
+Host: 127.0.0.1 (localhost)	Ports: 139/open/tcp//netbios-ssn//Samba smbd 4.6.2/, 445/open/tcp//netbios-ssn//Samba smbd 4.6.2/, 1716/open/tcp//xmsg?///, 5432/open/tcp//postgresql//PostgreSQL DB 9.6.0 or later/, 5433/open/tcp//pyrrho?///, 5985/open/tcp//http//TwistedWeb httpd 18.9.0/, 6463/open/tcp//unknown///, 6942/open/tcp//jetbrains-lock//PyCharm socket lock 2019.3 (user: motoko)/, 8081/open/tcp//blackice-icecap?///, 9000/open/tcp//cslistener?///, 63342/open/tcp//http//PyCharm 2019.3.2/	Seq Index: 258	IP ID Seq: All zeros
+# Nmap done at Mon Feb 10 07:23:11 2020 -- 1 IP address (1 host up) scanned in 161.27 seconds
