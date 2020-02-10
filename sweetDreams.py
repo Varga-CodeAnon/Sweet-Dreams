@@ -11,15 +11,25 @@ from modules.postgresql import *
 
 
 def error_display(code):
-    """Displays the error message corresponding to the code passed as a parameter"""
+    """Display the error message corresponding to the code passed as a parameter"""
     if code == 1:
-        sys.stderr.write("[!] SweetDreams: Argument error: sudo ./sweetDreams.py <target> <output_file.ctd>\n")
+        sys.stderr.write("[!] SweetDreams: Argument error: sudo ./sweetDreams.py <target> <output_file>\n")
     elif code == 2:
         sys.stderr.write(
-            "[!] SweetDreams:nmap error: You must have nmap installed and run this script with root privileges\n")
+            "[!] SweetDreams: nmap error: You must have nmap installed and run this script with root privileges\n")
     elif code == 3:
-        sys.stderr.write("[!] SweetDreams: Target error: nmap doesn't recognize the ip adress or the hostname\n")
+        sys.stderr.write("[!] SweetDreams: Target error: nmap doesn't recognize the IP address or the hostname\n")
     exit(code)
+
+
+def animated_loading(text):
+    """A useless loading animation"""
+    sys.stdout.write("\r[*] " + text + " in progress...\n")
+    # for char in itertools.cycle(['|', '/', '-', '\\']):
+    #     sys.stdout.write("\r[*] "+text+" in progress ["+char+"]")
+    #     sys.stdout.flush()
+    #     time.sleep(0.1)
+    # sys.stdout.write("\r[*] "+text+" Done!\n")
 
 
 def service_catcher(file_nm):
@@ -29,18 +39,17 @@ def service_catcher(file_nm):
     ports = []
     for line in scan_f:  # read the file line by line
         if "Ports:" in line:
-            # ports part
-            fields = line.split(' ')[3:]  # split the output and only keep the ports fields
+            fields = line.split(' ')[3:]  # split the output and remove some garbage
+            # Ports part
             for field in fields:
-                ports.append(field.split('/')[:1][0])
+                ports.append(field.split('/')[:1][0])  # we only keep the 'ports' fields
 
-            # services name part
-            services = line.split('//')[1:-1]  # split the output and only keep the ports fields
-            del services[1::2]  # only keep the name of the service by deleting the odd fields
+            # Protocol name part
+            services = line.split('//')[1:-1]  # split the line
+            del services[1::2]  # and only keep the name of the service by deleting the odd fields
 
     scan_f.close()
     results = dict(zip(ports, services))
-
     return results
 
 
@@ -50,13 +59,13 @@ def version_catcher(file_nm):
     version = []
     for line in scan_f:  # read the file line by line
         if "Ports:" in line:
-            fields = line.split('Ports: ')[1]  # split the output and only keep the ports fields
+            fields = line.split('Ports: ')[1]  # similar to the 'service_catcher' function
             fields = fields.split('Index: ')[0]
             fields = fields.split(',')
             index = 0
             for field in fields:
                 field = field.split('/')
-                if field[6] == '':
+                if field[6] == '':  # if there are no known versions
                     field[6] = "Not found..."
                 version.append(field[6])
                 index += 1
@@ -72,10 +81,9 @@ def nmap_init(target_ip, file_nm):
     services = ''
     try:
         subprocess.run(["nmap", "-p-", "-sS", target_ip, "-oG", temp, "-oN", file_nm], stdout=subprocess.DEVNULL,
-                       check=True)
+                       check=True)  # modify if you want to run another type of scan
     except subprocess.CalledProcessError:
-        error_display(2)
-
+        error_display(2)  # if the privileges are insufficient
     try:
         services = service_catcher(temp)
     except UnboundLocalError:  # this happens if the target is incorrect
@@ -93,38 +101,25 @@ def nmap_sv(dicto, target_ip, file_nm):
         ports += prt + ","
     ports = ports[:-1]
     subprocess.run(["nmap", ports, "-sV", target_ip, "--append-output", "-oG", "sV_temp", "-oN", file_nm, "-O"],
-                   stdout=subprocess.DEVNULL)
+                   stdout=subprocess.DEVNULL)  # modify if you want to run another type of scan
     results = version_catcher("sV_temp")
-
     return results
-
-
-def animated_loading(text):
-    """A useless loading animation"""
-    sys.stdout.write("\r[*] " + text + " in progress...\n")
-    # for char in itertools.cycle(['|', '/', '-', '\\']):
-    #     sys.stdout.write("\r[*] "+text+" in progress ["+char+"]")
-    #     sys.stdout.flush()
-    #     time.sleep(0.1)
-    # sys.stdout.write("\r[*] "+text+" Done!\n")
 
 
 def os_guess(sv_file):
     """Pick up the OS version from the nmap sV scan output file"""
     scan_f = open(sv_file, "r")
     os_version = ""
-
     line = scan_f.readline()
     while line and os_version == "":
         if "OS details:" in line:
-            os_version = line[12:].split(',')[0]  # split the output and only keep the os version
+            os_version = line[12:].split(',')[0]
         elif "OS guesses:" in line:
-            os_version = "Just guessing... " + line[23:].split(',')[0]  # split the output and only keep the os version
+            os_version = "Just guessing... " + line[23:].split(',')[0]
         line = scan_f.readline()
     scan_f.close()
     if os_version == "":
         os_version = "Not found..."
-
     return os_version
 
 
@@ -142,7 +137,7 @@ file_name = sys.argv[2]
 file_o = open(file_name, "a")
 # ---[ Test OFF ]---
 port_serv = nmap_init(sys.argv[1], sys.argv[2])  # initialization
-versions = nmap_sv(port_serv, target, sys.argv[2])  # grepable output in the file sV_temp
+versions = nmap_sv(port_serv, target, sys.argv[2])  # grepable output stored in the file sV_temp
 # ------------------
 # ---[ Test  ON ]---
 # versions = version_catcher("sV_temp")
