@@ -136,23 +136,20 @@ target = sys.argv[1]
 file_name = sys.argv[2]
 file_o = open(file_name + ".ctd", "a")
 # ---[ Test OFF ]---
-port_serv = nmap_init(target, file_name)  # initialization
-versions = nmap_sv(port_serv, target, file_name)  # grepable output stored in the file sV_temp
-os_found = os_guess(file_name + ".txt")
+# port_serv = nmap_init(target, file_name)  # initialization
+# versions = nmap_sv(port_serv, target, file_name)  # grepable output stored in the file sV_temp
+# os_found = os_guess(file_name + ".txt")
 # ------------------
 # ---[ Test  ON ]---
-# port_serv = {
-#     "139":"netbios-ssn",
-#     "445":"microsoft-ds",
-#     "1716":"xmsg",
-#     "5432":"postgresql",
-#     "5433":"pyrrho",
-#     "5985":"wsman",
-#     "6463":"unknown",
-#     "8081":"blackice-icecap",
-#     "9000":"cslistener"}
-# versions = version_catcher("sV_temp")
-# os_found = "Test in progress..."
+port_serv = {
+    "22":"ssh",
+    "80":"http",
+    "443":"ssl/http"}
+versions = [
+    "OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)",
+    "Apache httpd 2.4.29 ((Ubuntu))",
+    "Apache httpd 2.4.29 ((Ubuntu))"]
+os_found = "Test in progress..."
 # ------------------
 # -----[ HEAD ]-----
 cherry_header(file_o, target, os_found)
