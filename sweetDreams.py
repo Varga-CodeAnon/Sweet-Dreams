@@ -157,7 +157,7 @@ cherry_table(file_o, port_serv, versions)
 # -----[ BODY ]-----
 for i, (port, serv) in enumerate(port_serv.items()):
     if os.path.exists("modules/{}.py".format(serv)):
-        fct_name = "main_" + serv + "()"
+        fct_name = "main_" + serv + "(file_o)"
         exec(fct_name)
 # -----[ TAIL ]-----
 cherry_tail(file_o)

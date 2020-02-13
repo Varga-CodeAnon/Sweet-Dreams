@@ -1,0 +1,110 @@
+<?xml version="1.0" ?>
+<cherrytree>
+	<node custom_icon_id="14" foreground="" is_bold="True" name="SweetDreams" prog_lang="custom-colors" readonly="False" tags="" ts_creation="0.0" ts_lastsave="1581571212.33" unique_id="1">
+		<rich_text weight="heavy">Target:</rich_text>
+		<rich_text> 127.0.0.1
+</rich_text>
+		<rich_text weight="heavy">OS:</rich_text>
+		<rich_text> Test in progress...
+</rich_text>
+		<rich_text weight="heavy">Services:</rich_text>
+		<rich_text>
+
+</rich_text>
+		<rich_text justification="left"></rich_text>
+		<table char_offset="53" col_max="200" col_min="40">
+			<row>
+				<cell>22</cell>
+				<cell>ssh</cell>
+				<cell>OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)</cell>
+			</row>
+			<row>
+				<cell>80</cell>
+				<cell>http</cell>
+				<cell>Apache httpd 2.4.29 ((Ubuntu))</cell>
+			</row>
+			<row>
+				<cell>443</cell>
+				<cell>ssl/http</cell>
+				<cell>Apache httpd 2.4.29 ((Ubuntu))</cell>
+			</row>
+			<row>
+				<cell>Port</cell>
+				<cell>Protocol</cell>
+				<cell>Version</cell>
+			</row>
+		</table>
+		<node custom_icon_id="0" foreground="" is_bold="False" name="22" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1581571212.33" ts_lastsave="1581580147.54" unique_id="2">
+			<rich_text style="italic" weight="heavy">CheckList:</rich_text>
+			<rich_text>
+
+• Fingerprint server </rich_text>
+			<rich_text foreground="#2a30ffff0000">(done)</rich_text>
+			<rich_text>
+   ◇ telnet ip_address 22 (banner grab) 
+   ◇ </rich_text>
+			<rich_text link="webs http://www.monkey.org/%7Eprovos/scanssh/">scanssh</rich_text>
+			<rich_text>
+      ▪ scanssh -p -r -e excludes random(no.)/Network_ID/Subnet_Mask 
+• Password guessing
+   ◇ ssh root@ip_address 
+   ◇ </rich_text>
+			<rich_text link="webs http://packetstormsecurity.org/groups/teso/guess-who-0.44.tgz">guess-who</rich_text>
+			<rich_text>
+      ▪ ./b -l username -h ip_address -p 22 -2 &lt; password_file_location 
+   ◇ </rich_text>
+			<rich_text link="webs http://freeworld.thc.org/">Hydra brute force </rich_text>
+			<rich_text>
+   ◇ </rich_text>
+			<rich_text link="webs http://www.edge-security.com/edge-soft.php">brutessh</rich_text>
+			<rich_text>
+   ◇ </rich_text>
+			<rich_text link="webs http://www.darkc0de.com/c0de/ruby/sshbrute.txt">Ruby SSH Bruteforcer </rich_text>
+			<rich_text>                                                                
+• Examine configuration files 
+   ◇ ssh_config 
+   ◇ sshd_config 
+   ◇ authorized_keys 
+   ◇ ssh_known_hosts 
+   ◇ .shosts 
+• SSH Client programs
+   ◇ </rich_text>
+			<rich_text link="webs http://www.bitvise.com/">tunnelier </rich_text>
+			<rich_text>
+   ◇ </rich_text>
+			<rich_text link="webs http://www.bitvise.com/winsshd">winsshd </rich_text>
+			<rich_text>
+   ◇ </rich_text>
+			<rich_text link="webs http://www.chiark.greenend.org.uk/%7Esgtatham/putty/">putty </rich_text>
+			<rich_text>
+   ◇ </rich_text>
+			<rich_text link="webs http://winscp.net/eng/index.php">winscp </rich_text>
+			<rich_text>
+
+</rich_text>
+			<node custom_icon_id="0" foreground="" is_bold="False" name="CVE" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1581571468.97" ts_lastsave="1581571523.03" unique_id="6">
+				<rich_text>Lorem Ipsum</rich_text>
+			</node>
+			<node custom_icon_id="0" foreground="" is_bold="False" name="FingerprintServer" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1581571375.11" ts_lastsave="1581571496.32" unique_id="5">
+				<rich_text justification="left"></rich_text>
+				<codebox char_offset="0" frame_height="175" frame_width="750" highlight_brackets="True" show_line_numbers="False" syntax_highlighting="sh" width_in_pixels="True">root@poison:~/Desktop# ssh root@10.10.10.160
+The authenticity of host '10.10.10.160 (10.10.10.160)' can't be established.
+ECDSA key fingerprint is SHA256:kea9iwskZTAT66U8yNRQiTa6t35LX8p0jOpTfvgeCh0.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.10.10.160' (ECDSA) to the list of known hosts.
+root@10.10.10.160's password: 
+Permission denied, please try again.
+root@10.10.10.160's password: 
+Permission denied, please try again.
+root@10.10.10.160's password: 
+root@10.10.10.160: Permission denied (publickey,password).</codebox>
+			</node>
+		</node>
+		<node custom_icon_id="0" foreground="" is_bold="False" name="80" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1581571219.76" ts_lastsave="1581571222.13" unique_id="3">
+			<rich_text></rich_text>
+		</node>
+		<node custom_icon_id="0" foreground="" is_bold="False" name="443" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1581571222.13" ts_lastsave="1581571222.13" unique_id="4">
+			<rich_text></rich_text>
+		</node>
+	</node>
+</cherrytree>

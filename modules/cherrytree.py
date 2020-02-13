@@ -43,3 +43,14 @@ def cherry_tail(file_ctd):
     file_ctd.write(
         """\n    </node>
 </cherrytree>\n""")
+
+
+def begin_node(file_ctd, protocol_name):
+    """Begin a node <protocol_name> in the <file_ctd> cherrytree file"""
+    file_ctd.write("""
+        <node custom_icon_id="0" foreground="" is_bold="False" name=\"""" + protocol_name + """\" prog_lang="custom-colors" readonly="False" tags="" unique_id="2">""")
+
+def end_node(file_ctd):
+    """End a node <protocol_name> in the <file_ctd> cherrytree file"""
+    file_ctd.write("""
+        </node>""")
