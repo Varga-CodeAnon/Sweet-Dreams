@@ -1,19 +1,19 @@
 """Pre-filled the "cherrytree" output file with the results of the nmap scans"""
 
 
-def cherry_table(file_ctd, port_serv, versions):
+def cherry_table(file_ctd, target_victim):
     """Write a table inside a cherrytree file"""
     file_ctd.write(
         """\n		<rich_text justification="left"></rich_text>
 		<table char_offset="198" col_max="250" col_min="40">""")
-    for i, (port, serv) in enumerate(port_serv.items()):
+    for i, (port, serv) in enumerate(target_victim.ports.items()):
         if serv == '':
             serv = 'Not found...'
         file_ctd.write(
             """\n			<row>
 				<cell>""" + port + """</cell>
 				<cell>""" + serv + """</cell>
-				<cell>""" + versions[i] + """</cell>
+				<cell>""" + target_victim.versions[i] + """</cell>
 			</row>""")
     file_ctd.write(
         """\n			<row>
@@ -24,7 +24,7 @@ def cherry_table(file_ctd, port_serv, versions):
 		</table>""")
 
 
-def cherry_header(file_ctd, target, op_sys):
+def cherry_header(file_ctd, target_victim):
     """Write a cherrytree header (xml format)"""
     file_ctd.write(
 """<?xml version="1.0" ?>
@@ -38,9 +38,9 @@ def cherry_header(file_ctd, target, op_sys):
 		<rich_text family="monospace">`-' `.'.' `-' `-'  '  `-' ' ' `-' ` ' '  ` `-'</rich_text>
 		<rich_text>\n\n</rich_text>
 		<rich_text weight="heavy">Target:</rich_text>
-		<rich_text> 127.0.0.1\n</rich_text>
+		<rich_text> """+target_victim.ip+"""\n</rich_text>
 		<rich_text weight="heavy">OS:</rich_text>
-		<rich_text> Test in progress...\n</rich_text>
+		<rich_text> """+target_victim.os+"""\n</rich_text>
 		<rich_text weight="heavy">Services:</rich_text>
 		<rich_text>\n\n</rich_text>""")
 

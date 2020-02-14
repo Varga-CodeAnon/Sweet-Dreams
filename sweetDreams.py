@@ -10,6 +10,21 @@ from modules.http import *
 from modules.postgresql import *
 
 
+class Target:
+    """Define a target which has :
+        - an IP address
+        - an OS
+        - opened ports
+        - services versions detected"""
+    
+    def __init__(self, ip_addr, os_target, ports_dict, versions_list):
+        """Constructeur de notre classe"""
+        self.ip = ip_addr
+        self.os = os_target
+        self.ports = ports_dict
+        self.versions = versions_list
+        
+
 def error_display(code):
     """Display the error message corresponding to the code passed as a parameter"""
     if code == 1:
@@ -149,15 +164,16 @@ versions = [
     "OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)",
     "Apache httpd 2.4.29 ((Ubuntu))",
     "Apache httpd 2.4.29 ((Ubuntu))"]
-os_found = "Test in progress..."
+os_found = "SweetDreams OS"
 # ------------------
+victim = Target(target,os_found,port_serv,versions)
 # -----[ HEAD ]-----
-cherry_header(file_o, target, os_found)
-cherry_table(file_o, port_serv, versions)
+cherry_header(file_o, victim)
+cherry_table(file_o, victim)
 # -----[ BODY ]-----
-for i, (port, serv) in enumerate(port_serv.items()):
+for i, (port, serv) in enumerate(victim.ports.items()):
     if os.path.exists("modules/{}.py".format(serv)):
-        fct_name = "main_" + serv + "(file_o)"
+        fct_name = "main_" + serv + "(file_o,victim)"
         exec(fct_name)
 # -----[ TAIL ]-----
 cherry_tail(file_o)
