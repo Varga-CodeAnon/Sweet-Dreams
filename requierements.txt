@@ -1,0 +1,4 @@
+cherrytree
+nc
+nmap
+python3
