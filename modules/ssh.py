@@ -4,9 +4,9 @@ from modules.cherrytree import *
 
 
 def description(file_ctd):
-    """TODO:"""
+    """Displays a methodology to enumerate the port 22 (source :)"""
     file_ctd.write(
-"""\n        <rich_text style="italic" weight="heavy">CheckList:</rich_text>
+"""\n			<rich_text style="italic" weight="heavy">CheckList:</rich_text>
 			<rich_text>
 
 • Fingerprint server </rich_text>
@@ -67,9 +67,9 @@ def main_ssh(file_ctd):
     # /cve
     # fingerprint
     begin_node(file_ctd,"fingerprint",'4')
-    file_ctd.write("""\n
-                <codebox char_offset="0" frame_height="175" frame_width="750" highlight_brackets="True" show_line_numbers="False" syntax_highlighting="sh" width_in_pixels="True">OK
-BOOMER""") FIXME:
+    begin_code(file_ctd)
+    file_ctd.write("""Okay !""")
+    end_code(file_ctd)
     end_node(file_ctd)
     # /fingerprint
     end_node(file_ctd)
