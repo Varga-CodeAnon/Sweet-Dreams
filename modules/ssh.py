@@ -56,7 +56,7 @@ def description(file_ctd):
     )
 
 
-def main_ssh(file_ctd):
+def main_ssh(file_ctd,target_victim):
     """Execute the information gathering"""
     begin_node(file_ctd,"ssh",'2')
     print("[*] SSH enum in progress...")
