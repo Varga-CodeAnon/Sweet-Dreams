@@ -1,5 +1,6 @@
 """Collect informations from the SSH protocol"""
-
+import subprocess
+import time  # for the sleep command
 from modules.cherrytree import *
 
 
@@ -56,15 +57,28 @@ def description(file_ctd):
     )
 
 
-def main_ssh(file_ctd,target_victim):
+def main_ssh(file_ctd, file_name, target_victim):
     """Execute the information gathering"""
     begin_node(file_ctd,"ssh",'2')
     print("[*] SSH enum in progress...")
     description(file_ctd)
+
     # cve
     begin_node(file_ctd,"cve",'3')
+
+    file_temp = open("temp", "w")
+    cmd = ['cat','/home/adam/Git/Sweet-Dreams/ssh_results']
+    subprocess.call(cmd, stdout=file_temp) # , stdout=subprocess.DEVNULL
+    file_temp.close()
+    file_temp = open("temp", "r")
+    file_ctd.write("<rich_text>")
+    for line in file_temp:
+        file_ctd.write(line)
+    file_ctd.write("</rich_text>")
+
     end_node(file_ctd)
     # /cve
+
     # fingerprint
     begin_node(file_ctd,"fingerprint",'4')
     begin_code(file_ctd)
