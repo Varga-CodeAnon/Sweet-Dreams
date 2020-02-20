@@ -173,7 +173,7 @@ cherry_table(file_o, victim)
 # -----[ BODY ]-----
 for i, (port, serv) in enumerate(victim.ports.items()):
     if os.path.exists("modules/{}.py".format(serv)):
-        fct_name = "main_" + serv + "(file_o,victim)"
+        fct_name = "main_" + serv + "(file_o,\"" + file_name + ".ctd\",victim)"
         exec(fct_name)
 # -----[ TAIL ]-----
 cherry_tail(file_o)

@@ -1,4 +1,4 @@
-def main_postgresql(file_ctd,target_victim):
+def main_postgresql(file_ctd,file_name,target_victim):
     """"""
     print("[*] Postgresql enum in progress...")
     # node_file = cherry_node_head(port,serv,versions[i])  # TODO: à implémenter
